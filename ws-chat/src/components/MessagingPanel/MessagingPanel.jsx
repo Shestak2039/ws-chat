@@ -5,33 +5,22 @@ import DisplayConversation from '../DisplayConversation/DisplayConversation';
 import MessagingBox from '../MessagingBox/MessagingBox';
 
 class MessagingPanel extends Component {
-  state = {
-    messages: [],
-  }
-
   connection = new WebSocket('ws://st-chat.shas.tel');
 
-  componentDidMount() {
-    this.connection.onmessage = (message) => {
-      console.log(message);
-      const { messages } = this.state;
-      const data = JSON.parse(message.data);
-      this.setState({ messages: [...messages, data.message] });
-    };
-  }
-
-  getMessage = (message) => {
+  sendMessage = (message) => {
     const { username } = this.props;
     const data = { from: username, message };
     this.connection.send(JSON.stringify(data));
   }
 
   render() {
-    const { messages } = this.state;
+    const { messages, deleteUsername } = this.props;
+    console.log(messages);
     return (
       <>
         <DisplayConversation messages={messages} />
-        <MessagingBox getMessage={this.getMessage} />
+        <MessagingBox sendMessage={this.sendMessage} />
+        <button type="button" onClick={deleteUsername}>Log out</button>
       </>
     );
   }
@@ -39,6 +28,9 @@ class MessagingPanel extends Component {
 
 MessagingPanel.propTypes = {
   username: PropTypes.string.isRequired,
+  addMessages: PropTypes.func.isRequired,
+  deleteUsername: PropTypes.func.isRequired,
+  messages: PropTypes.any.isRequired,
 };
 
 export default MessagingPanel;

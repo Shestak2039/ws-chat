@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 class MessagingBox extends Component {
   messageHandler = (e) => {
     if (e.keyCode === 13) {
-      const { getMessage } = this.props;
+      const { sendMessage } = this.props;
       e.preventDefault();
-      getMessage(e.target.value);
+      sendMessage(e.target.value);
       e.target.value = '';
     }
   }
@@ -21,7 +21,7 @@ class MessagingBox extends Component {
 }
 
 MessagingBox.propTypes = {
-  getMessage: PropTypes.func.isRequired,
+  sendMessage: PropTypes.func.isRequired,
 };
 
 export default MessagingBox;
