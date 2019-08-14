@@ -11,16 +11,20 @@ class MessagingBox extends Component {
     if (e.keyCode === 13) {
       const { sendMessage } = this.props;
       e.preventDefault();
-      sendMessage(e.target.value);
-      e.target.value = '';
+      if (e.target.value !== '') {
+        sendMessage(e.target.value);
+        e.target.value = '';
+      }
     }
   }
 
   messageHandlerClick = () => {
     const { sendMessage } = this.props;
     const message = document.getElementById('filled-dense-multiline').value;
-    sendMessage(message);
-    document.getElementById('filled-dense-multiline').value = '';
+    if (message !== '') {
+      sendMessage(message);
+      document.getElementById('filled-dense-multiline').value = '';
+    }
   }
 
   render() {
@@ -35,6 +39,7 @@ class MessagingBox extends Component {
           multiline
           rowsMax="4"
           onKeyDown={this.messageHandler}
+          required
         />
         <Button onClick={this.messageHandlerClick} variant="contained" color="primary" className="messaging-box__button-send">
           Send
