@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 class Login extends Component {
   login = (e) => {
-    const { setUsername } = this.props;
+    const { addUsername } = this.props;
     e.preventDefault();
-    setUsername(e.target.username.value);
+    localStorage.setItem('username', e.target.username.value);
+    addUsername(e.target.username.value);
   }
 
   render() {
     return (
       <div id="login">
         <form onSubmit={this.login}>
+          <TextField
+            id="username"
+            label="Name"
+            margin="normal"
+            variant="outlined"
+          />
           <br />
-          <input type="text" id="username" />
-          <br />
-          <input type="submit" value="Log In" />
+          <Button variant="contained" color="primary" type="submit">
+            Log In
+          </Button>
         </form>
       </div>
     );
@@ -23,7 +33,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  setUsername: PropTypes.func.isRequired,
+  addUsername: PropTypes.func.isRequired,
 };
 
 export default Login;

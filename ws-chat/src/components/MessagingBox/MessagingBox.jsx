@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+import './messaging-box.css';
+
 class MessagingBox extends Component {
   messageHandler = (e) => {
     if (e.keyCode === 13) {
@@ -11,10 +16,28 @@ class MessagingBox extends Component {
     }
   }
 
+  messageHandlerClick = () => {
+    const { sendMessage } = this.props;
+    const message = document.getElementById('filled-dense-multiline').value;
+    sendMessage(message);
+    document.getElementById('filled-dense-multiline').value = '';
+  }
+
   render() {
     return (
-      <div id="messagingBox">
-        <textarea onKeyDown={this.messageHandler} />
+      <div id="messaging-box">
+        <TextField
+          id="filled-dense-multiline"
+          label="Message"
+          margin="dense"
+          variant="filled"
+          multiline
+          rowsMax="4"
+          onKeyDown={this.messageHandler}
+        />
+        <Button onClick={this.messageHandlerClick} variant="contained" color="primary" className="messaging-box__button-send">
+          Send
+        </Button>
       </div>
     );
   }

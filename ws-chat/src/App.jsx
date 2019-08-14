@@ -10,6 +10,8 @@ import MessagingPanel from './components/MessagingPanel/MessagingPanel';
 import { addUsernameAction, deleteUsernameAction } from './actions/username-actions';
 import addMessagesAction from './actions/messages-actions';
 
+import Notification from './Notification';
+
 class App extends React.Component {
   connection = new WebSocket('ws://st-chat.shas.tel');
 
@@ -18,6 +20,12 @@ class App extends React.Component {
       console.log(data);
       const { addMessages } = this.props;
       addMessages(JSON.parse(data).reverse());
+      if (document.hidden) {
+        JSON.parse(data).forEach((message) => {
+          console.log(message);
+          Notification(message.from, message.message);
+        });
+      }
     };
   }
 
@@ -26,17 +34,21 @@ class App extends React.Component {
       username, addUsername, messages, addMessages, deleteUsername,
     } = this.props;
     console.log(this.props);
+    if (localStorage.getItem('username')) {
+      addUsername(localStorage.getItem('username'));
+    }
     return (
       <div className="App">
         {
-          username === ''
-            ? <Login setUsername={addUsername} />
+          !username
+            ? <Login addUsername={addUsername} />
             : (
               <MessagingPanel
                 username={username}
                 messages={messages}
                 addMessages={addMessages}
                 deleteUsername={deleteUsername}
+                connection={this.connection}
               />
             )
         }
