@@ -1,3 +1,7 @@
 .messaging-box__button-send {
-  margin: 13px !important;
+  margin: 15px 12px !important;
+}
+
+.messaging-box__textfield {
+  width: 600px !important;
 }

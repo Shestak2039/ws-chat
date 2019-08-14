@@ -5,6 +5,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F2D95D;
+  background-image: radial-gradient(#7F7E7F 76%, transparent 0),
+                    radial-gradient(#7F7E7F 72%, transparent 0),
+                    radial-gradient(#7F7E7F 68%, transparent 0),
+                    radial-gradient(#7F7E7F 64%, transparent 0),
+                    radial-gradient(#7F7E7F 60%, transparent 0),
+                    radial-gradient(#7F7E7F 56%, transparent 0),
+                    radial-gradient(#7F7E7F 52%, transparent 0),
+                    radial-gradient(#7F7E7F 48%, transparent 0),
+                    radial-gradient(#7F7E7F 44%, transparent 0),
+                    radial-gradient(#7F7E7F 40%, transparent 0),
+                    radial-gradient(#7F7E7F 36%, transparent 0),
+                    radial-gradient(#7F7E7F 32%, transparent 0),
+                    radial-gradient(#7F7E7F 28%, transparent 0),
+                    radial-gradient(#7F7E7F 24%, transparent 0);
+  background-size: 1em 1em;
+  background-repeat: repeat-y;
+  background-position: 0 0, 1em 0, 2em 0, 3em 0, 4em 0, 5em 0, 6em 0, 7em 0, 8em 0, 9em 0, 10em 0, 11em 0, 12em 0, 13em 0;
 }
 
 code {

@@ -1,13 +1,14 @@
 .display-conversation {
-  width: 400px;
-  margin: 0 auto;
-  height: 600px;
+  width: 850px;
+  margin: 40px auto 10px auto;
+  height: 450px;
   overflow-y: scroll;
   overflow-x: hidden;
   text-align: left;
   border: 2px solid #203abf;
   padding: 10px;
   box-shadow: 0px 0px 10px black;
+  background-color: #fff;
 }
 
 .message__nickname-and-time {

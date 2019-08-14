@@ -20,18 +20,16 @@ class DisplayConversation extends Component {
 
   displayMessage = () => {
     const { messages } = this.props;
-    return messages.map((message) => {
-      return (
-        <div className="message" key={message.id}>
-          <span className="message__nickname-and-time">
-            {`(${moment(message.time).format('L')}, ${moment(message.time).format('LT')})${message.from.length > 23 ? `${message.from.slice(0, 20)}...` : message.from}: `}
-          </span>
-          <span className="message__text">
-            {message.message}
-          </span>
-        </div>
-      )
-    });
+    return messages.map((message) => (
+      <div className="message" key={message.id}>
+        <span className="message__nickname-and-time">
+          {`(${moment(message.time).format('L')}, ${moment(message.time).format('LT')})${message.from.length > 23 ? `${message.from.slice(0, 20)}...` : message.from}: `}
+        </span>
+        <span className="message__text">
+          {message.message}
+        </span>
+      </div>
+    ));
   }
 
   render() {

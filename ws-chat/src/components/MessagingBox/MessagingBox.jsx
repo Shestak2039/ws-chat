@@ -27,6 +27,7 @@ class MessagingBox extends Component {
     return (
       <div id="messaging-box">
         <TextField
+          className="messaging-box__textfield"
           id="filled-dense-multiline"
           label="Message"
           margin="dense"

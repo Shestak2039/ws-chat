@@ -4,3 +4,4 @@ export const DELETE_USERNAME = 'DELETE_USERNAME';
 
 // Messages
 export const ADD_MESSAGES = 'ADD_MESSAGES';
+export const DELETE_MESSAGES = 'DELETE_MESSAGES';

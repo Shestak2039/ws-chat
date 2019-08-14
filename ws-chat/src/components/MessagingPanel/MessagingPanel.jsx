@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '@material-ui/core/Button';
+
 import DisplayConversation from '../DisplayConversation/DisplayConversation';
 import MessagingBox from '../MessagingBox/MessagingBox';
 
-import Button from '@material-ui/core/Button';
+import './messaging-panel.css';
 
 class MessagingPanel extends Component {
   sendMessage = (message) => {
     const { username, connection } = this.props;
-    const data = { from: username, message };
-    connection.send(JSON.stringify(data));
+    if (connection.readyState === 1) {
+      const data = { from: username, message };
+      connection.send(JSON.stringify(data));
+    } else if (connection.readyState === 3) {
+      if (localStorage.getItem('messages')) {
+        const oldMessages = JSON.parse(localStorage.getItem('messages'));
+        oldMessages.push({ from: username, message });
+        localStorage.setItem('messages', JSON.stringify(oldMessages));
+      } else {
+        localStorage.setItem('messages', JSON.stringify([{ from: username, message }]));
+      }
+    }
   }
 
   logOut = () => {
@@ -24,11 +36,11 @@ class MessagingPanel extends Component {
     console.log(messages);
     return (
       <>
-        <DisplayConversation messages={messages} />
-        <MessagingBox sendMessage={this.sendMessage} />
-        <Button variant="contained" color="primary" onClick={this.logOut}>
+        <Button className="button-logout" variant="contained" color="primary" onClick={this.logOut}>
           Log Out
         </Button>
+        <DisplayConversation messages={messages} />
+        <MessagingBox sendMessage={this.sendMessage} />
       </>
     );
   }
