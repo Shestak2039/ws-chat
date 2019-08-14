@@ -32,13 +32,14 @@ class MessagingPanel extends Component {
   }
 
   render() {
-    const { messages } = this.props;
+    const { messages, username } = this.props;
     console.log(messages);
     return (
       <>
         <Button className="button-logout" variant="contained" color="primary" onClick={this.logOut}>
           Log Out
         </Button>
+        <div className="messagin-panel__username">{`Nickname: ${username}`}</div>
         <DisplayConversation messages={messages} />
         <MessagingBox sendMessage={this.sendMessage} />
       </>

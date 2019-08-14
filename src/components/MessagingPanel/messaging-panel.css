@@ -3,3 +3,9 @@
   left: 10px;
   top: 10px;
 }
+
+.messagin-panel__username {
+  margin-top: 10px;
+  font-size: 30px;
+  color: rgb(99, 98, 99);
+}
