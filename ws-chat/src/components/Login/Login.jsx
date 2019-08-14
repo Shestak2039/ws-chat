@@ -18,7 +18,7 @@ class Login extends Component {
         <form onSubmit={this.login}>
           <TextField
             id="username"
-            label="Name"
+            label="Nickname"
             margin="normal"
             variant="outlined"
           />
