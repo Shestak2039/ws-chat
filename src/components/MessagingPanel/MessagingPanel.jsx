@@ -27,7 +27,6 @@ class MessagingPanel extends Component {
   componentDidMount() {
     this.connection.onmessage = this.connenctionOnMessage;
     this.connection.onopen = this.connectionOnOpen;
-    this.connection.onclose = this.connectionOnClose;
   }
 
   connenctionOnMessage = ({ data }) => {
@@ -64,7 +63,6 @@ class MessagingPanel extends Component {
 
     this.connection.onmessage = this.connenctionOnMessage;
     this.connection.onopen = this.connectionOnOpen;
-    this.connection.onclose = this.connectionOnClose;
   }
 
   connectionOnClose = () => {
@@ -73,6 +71,7 @@ class MessagingPanel extends Component {
 
   closeConnect = () => {
     this.connection.close();
+    this.setState({ isConnection: false });
   }
 
   sendMessage = (message) => {
@@ -97,13 +96,14 @@ class MessagingPanel extends Component {
     }
   }
 
-  logOut = () => {
+  logOut = async () => {
     const { deleteUsername, deleteMessages } = this.props;
 
-    deleteUsername();
+    this.closeConnect();
     deleteMessages();
 
     localStorageDelete('username');
+    deleteUsername();
   }
 
   render() {
