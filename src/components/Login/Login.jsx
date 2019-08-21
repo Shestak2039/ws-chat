@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { addUsernameAction } from '../../actions/username-actions';
+import { localStorageSet } from '../../services/localStorage.service';
+
 class Login extends Component {
   login = (e) => {
     const { addUsername } = this.props;
+    const { value } = e.target.username;
+
     e.preventDefault();
-    localStorage.setItem('username', e.target.username.value);
-    addUsername(e.target.username.value);
+
+    localStorageSet('username', value);
+    addUsername(value);
   }
 
   render() {
     return (
-      <div id="login">
+      <div className="login">
         <form onSubmit={this.login}>
           <TextField
             id="username"
@@ -36,4 +44,18 @@ Login.propTypes = {
   addUsername: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapStateToProps = (state) => (
+  {
+    username: state.usernameState.username,
+  }
+);
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    addUsername: (username) => {
+      dispatch(addUsernameAction(username));
+    },
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

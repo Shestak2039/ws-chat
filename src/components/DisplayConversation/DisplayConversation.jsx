@@ -20,16 +20,23 @@ class DisplayConversation extends Component {
 
   displayMessage = () => {
     const { messages } = this.props;
-    return messages.map((message) => (
-      <div className="message" key={message.id}>
-        <span className="message__nickname-and-time">
-          {`(${moment(message.time).format('L')}, ${moment(message.time).format('LT')})${message.from.length > 23 ? `${message.from.slice(0, 20)}...` : message.from}: `}
-        </span>
-        <span className="message__text">
-          {message.message}
-        </span>
-      </div>
-    ));
+
+    return messages.map((message) => {
+      const day = moment(message.time).format('L');
+      const time = moment(message.time).format('LT');
+      const nickname = message.from.length > 23 ? `${message.from.slice(0, 20)}...` : message.from;
+
+      return (
+        <div className="display-conversation__message" key={message.id}>
+          <span className="display-conversation__message_nickname-and-time">
+            {`(${day}, ${time})${nickname}: `}
+          </span>
+          <span className="display-conversation__message_text">
+            {message.message}
+          </span>
+        </div>
+      );
+    });
   }
 
   render() {
@@ -46,7 +53,7 @@ class DisplayConversation extends Component {
 }
 
 DisplayConversation.propTypes = {
-  messages: PropTypes.any.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default DisplayConversation;

@@ -7,7 +7,9 @@ import Button from '@material-ui/core/Button';
 import './messaging-box.css';
 
 class MessagingBox extends Component {
-  messageHandler = (e) => {
+  textField = React.createRef();
+
+  messageHandlerKeyboard = (e) => {
     if (e.keyCode === 13) {
       const { sendMessage } = this.props;
       e.preventDefault();
@@ -20,16 +22,17 @@ class MessagingBox extends Component {
 
   messageHandlerClick = () => {
     const { sendMessage } = this.props;
-    const message = document.getElementById('filled-dense-multiline').value;
+    const message = this.textField.current.children[1].children[0].value;
+
     if (message !== '') {
       sendMessage(message);
-      document.getElementById('filled-dense-multiline').value = '';
+      this.textField.current.children[1].children[0].value = '';
     }
   }
 
   render() {
     return (
-      <div id="messaging-box">
+      <div className="messaging-box">
         <TextField
           className="messaging-box__textfield"
           id="filled-dense-multiline"
@@ -38,10 +41,15 @@ class MessagingBox extends Component {
           variant="filled"
           multiline
           rowsMax="4"
-          onKeyDown={this.messageHandler}
-          required
+          onKeyDown={this.messageHandlerKeyboard}
+          ref={this.textField}
         />
-        <Button onClick={this.messageHandlerClick} variant="contained" color="primary" className="messaging-box__button-send">
+        <Button
+          onClick={this.messageHandlerClick}
+          variant="contained"
+          color="primary"
+          className="messaging-box__button-send"
+        >
           Send
         </Button>
       </div>
